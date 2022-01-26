@@ -34,13 +34,13 @@ public class Gerenciador {
 					cadastrarPalavra();
 					break;
 				case 2:
-					excluirTema(JogoDaForca.somenteTemas);
+					excluirPalavra(JogoDaForca.temasEPalavras);
 					break;
 				case 3:
 					imprimeTemas(JogoDaForca.somenteTemas);
 					break;
 			}
-		}while (opcao != 4);
+		}while (opcao != 5);
 	}
 	
 	
@@ -59,17 +59,45 @@ public class Gerenciador {
 
 	private static void cadastrarPalavra() {
 		imprimeTemas(JogoDaForca.somenteTemas);
-		System.out.println("Escolha um dos temas acima para cadastrar a palavra: ");
+		System.out.print("Escolha um dos temas acima para cadastrar a palavra: ");
+		int indexTemaEscolhido = escolhaTema();
 		
+		System.out.print("Digite a palavra: ");
+		String novaPalavra = Utensilios.ler.next().toLowerCase();
 		
-		String novoTema = Utensilios.ler.next().toLowerCase();
-		
-		if (temaRepetido(novoTema, JogoDaForca.somenteTemas))
-			System.out.println("Tema digitado já cadastrado!");
+		if (palavraRepetida(novaPalavra, JogoDaForca.temasEPalavras[indexTemaEscolhido]))
+			System.out.println("A palavra já está cadastrada para esse tema!");
 		else {
-			inserirTema(novoTema, JogoDaForca.temasEPalavras);
-			System.out.println("Tema cadastrado com Sucesso!");
+			inserirPalavra(novaPalavra, JogoDaForca.temasEPalavras[indexTemaEscolhido]);
+			System.out.println("Palavra cadastrada com sucesso!");
 		}
+	}
+	
+	private static boolean palavraRepetida (String novaPalavra, String[] listaPalavras) {
+		boolean palavraRepetida = false;
+		
+		// Iniciamos a partir do 1, pois o primeiro valor da listaPalavras é o nome do tema.
+		for (int i = 1; i < Utensilios.arrayLengthNotNull(listaPalavras); i++)
+			if (listaPalavras[i].equals(novaPalavra)) {
+				palavraRepetida = true;
+				break;
+			}
+		return palavraRepetida;
+	}
+	
+	private static void inserirPalavra(String palavra, String[] listaPalavras) {
+
+		for (int i = 0; i < listaPalavras.length; i++) {
+			if (listaPalavras[i] == null) {
+				listaPalavras[i] = palavra;
+				break;
+			}		
+		}
+	}
+	
+	private static void excluirPalavra(String[][] temasEPalavras) {
+		System.out.print("Digite o nome da palavra que deseja excluir: ");
+		
 	}
 	
 	public static void gerenciarTemas() {
@@ -116,7 +144,7 @@ public class Gerenciador {
 			System.out.println("Tema digitado já cadastrado!");
 		else {
 			inserirTema(novoTema, JogoDaForca.temasEPalavras);
-			System.out.println("Tema cadastrado com Sucesso!");
+			System.out.println("Tema cadastrado com sucesso!");
 		}
 	}
 
@@ -146,13 +174,9 @@ public class Gerenciador {
 		
 		System.out.printf("%nDigite o número do tema que deseja excluir: ");
 		
-		int quantTemas = Utensilios.arrayLengthNotNull(temas);
-		
 		int indexTema = 0;
 		
-		indexTema = Utensilios.validarVariavel(indexTema, 1, quantTemas , "Não há o tema escolhido, digite novamente: ");
-			
-		indexTema--; // Removemos 1 do index pois arrays iniciam com 0 e não com 1, diferente de como apresenta o nosso menu.
+		indexTema = escolhaTema();
 							
 		if(!temaSemPalavras(JogoDaForca.temasEPalavras, indexTema))
 			System.out.println("Não foi possível excluir o tema. Verifique se existem palavras cadastradas nesse tema.");
@@ -175,6 +199,18 @@ public class Gerenciador {
 		
 	}
 
+	// Pede ao usuário que escolha o tema e avalia se o valor digitado é válido ou não.
+	public static int escolhaTema() {
+		int quantTemas = Utensilios.arrayLengthNotNull(JogoDaForca.somenteTemas); // Quantidade de temas armazenados no programa
+		int indexTemaEscolhido = 0;
+		indexTemaEscolhido = Utensilios.validarVariavel(indexTemaEscolhido, 1, quantTemas,
+				"Tema escolhido inválido, digite novamente: ");
+		
+		indexTemaEscolhido --; // Removemos 1 do index pois arrays iniciam com 0 e não com 1, diferente de como apresenta o nosso menu.
+		
+		return indexTemaEscolhido;
+	}
+	
 	// Esse método desloca as linhas da array temasEPalavras, sobrescrevendo o tema indicado por indexTema.
 	// Para tal, copiamos os valores da próxima linha na linha que será sobrescrita.
 	private static void deletarTema(int indexTema) {

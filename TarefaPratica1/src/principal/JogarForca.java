@@ -105,19 +105,16 @@ public class JogarForca {
 
 	// Apresenta os temas para o usuário e pede para que ele selecione um deles
 	private static void selecionaTema(String[] temas) {
-		int quantTemas = Utensilios.arrayLengthNotNull(temas); // Quantidade de temas que têm armazenados no programa
-		
 		Gerenciador.imprimeTemas(temas);
 		
 			System.out.printf("%nDigite o número do tema que deseja jogar: ");
 			
-			indexTema = Utensilios.validarVariavel(indexTema, 1, quantTemas , "Tema escolhido inválido, digite novamente: ");
-			indexTema--; // Removemos 1 do index pois arrays iniciam com 0 e não com 1, diferente de como apresenta o nosso menu.
-								
+			indexTema = Gerenciador.escolhaTema();
+			
 			while(Gerenciador.temaSemPalavras(JogoDaForca.temasEPalavras, indexTema)) {
 				System.out.print("O tema escolhido não tem palavras armazenadas, tente outro: ");
-				indexTema = Utensilios.validarVariavel(indexTema, 1, quantTemas , "Tema escolhido inválido, digite novamente: ");
-				indexTema--;
+				indexTema = Gerenciador.escolhaTema();
+				
 			}
 		
 	}
