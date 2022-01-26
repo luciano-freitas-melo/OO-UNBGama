@@ -4,6 +4,7 @@ O intuito dessa classe é criar métodos que serão úteis várias vezes durante o de
 
 package principal;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Utensilios {
@@ -22,10 +23,13 @@ public class Utensilios {
 	
 	/*
 	 * Validar variável do tipo inteiro
-	 * 	Lê um inteiro do usuário, e valida esse valor de acordo com os parâmetros dados, da seguinte forma:
+	 * 	Lê um inteiro do usuário, e valida esse valor de duas formas:
+	 * 		1. Se o usuário digitou um inteiro, caso contrário retorna uma mensagem de erro padrão e pede novamente a digitação.
+	 * 		2. Se o valor digitado está entre os parâmetros aceitos, isso é feito pelas variáveis minimoAceitavel e maximoAceitavel,
+	 * 		da seguinte forma:
 	 * 							minimoAceitavel < valor recebido < maximoAceitavel
-	 * 	Caso o valor recebido não esteja dentro desse intervalo, retorna uma mensagem de erro ao usuário (também
-	 * 	definida por um parâmetro) e pede a leitura novamente do valor, até que seja digitado um valor válido.
+	 * 		Caso o valor recebido não esteja dentro desse intervalo, retorna uma mensagem de erro ao usuário (também
+	 * 		definida por um parâmetro) e pede a leitura novamente do valor, até que seja digitado um valor válido.
 	 * 
 	 * Exemplo de formato de mensagem de erro: "Número digitado inválido, tente novamente: "
 	 */
@@ -34,24 +38,37 @@ public class Utensilios {
 		
 		do {
 			valorInvalido = false;
-			if (ler.hasNextInt()) {
+			try {
 				variavel = ler.nextInt();
-				
 				if (variavel < minimoAceitavel || variavel > maximoAceitavel) {
 					valorInvalido = true;
 					System.out.print(mensagemErro);
 				}
-				
-			} else {
+			}
+			catch (InputMismatchException erro){
+				valorInvalido = true;
 				ler.nextLine();
 				System.out.print("Valor digitado inválido, por favor insira um NÚMERO: ");
-				valorInvalido = true;
 			}
 			
 		}while(valorInvalido);
 		
 		return variavel;
 	}
+
+	// Verifica se a letra no parâmetro é uma letra e se é um dígito único.
+		public static boolean letraValida (String letra) {
+			boolean digitoUnico = letra.length() == 1; // Verifica se o usuário digitou apenas um dígito.
+			boolean ehLetra = Character.isLetter(letra.charAt(0)); // Verifica se o chute é uma letra do alfabeto.
+			
+			if (!digitoUnico)
+				System.out.print("Digite apenas uma letra por vez, tente novamente: ");
+			
+			else if (!ehLetra)
+				System.out.print("Isso não é uma letra, tente novamente: ");
+			
+			return (digitoUnico && ehLetra ? true : false);
+		}
 
 	// Verifica se a array dada no parâmetro contêm o valor respectivo.
 	public static boolean arrayContem(char[] array, char valor) {
@@ -65,19 +82,15 @@ public class Utensilios {
         return valorEncontrado; 
     }
 
-
-	// Verifica se a letra no parâmetro é uma letra e se é um dígito único.
-	public static boolean letraValida (String letra) {
-		boolean digitoUnico = letra.length() == 1; // Verifica se o usuário digitou apenas um dígito.
-		boolean ehLetra = Character.isLetter(letra.charAt(0)); // Verifica se o chute é uma letra do alfabeto.
-		
-		if (!digitoUnico)
-			System.out.print("Digite apenas uma letra por vez, tente novamente: ");
-		
-		else if (!ehLetra)
-			System.out.print("Isso não é uma letra, tente novamente: ");
-		
-		return (digitoUnico && ehLetra ? true : false);
-	}
+	// Retorna o tamanho da array, mas ignorando valores do tipo null na contagem.
+	public static int arrayLengthNotNull(String[] array) {
+		int arrayLength = 0;
 	
+		for (String value : array)
+			if (value != null)
+				arrayLength++;
+		
+		return arrayLength;
+	}
+		
 }
