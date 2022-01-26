@@ -39,13 +39,15 @@ public class Gerenciador {
 				case 3:
 					buscaPalavra(JogoDaForca.temasEPalavras);
 					break;
+				case 4:
+					listarPalavras();
 			}
 		}while (opcao != 5);
 	}
-	
+
 	private static void menuPalavras() {
 		System.out.println();
-		System.out.println("*** Gerenciador de Palavras ***");
+		System.out.println("**** Gerenciar Palavras ****");
 		System.out.println();
 		System.out.println("1. Cadastrar");
 		System.out.println("2. Excluir");
@@ -252,6 +254,27 @@ public class Gerenciador {
 		return temasDaPalavra;
  	}
 	
+	private static void listarPalavras() {
+		imprimeTemas(JogoDaForca.somenteTemas);
+		System.out.print("Escolha o tema que deseja listar as palavras: ");
+		int posicaoTema = escolhaTema();
+		
+		System.out.println();
+		System.out.println("********* Palavras *********");
+		
+		String [] listaPalavras = JogoDaForca.temasEPalavras[posicaoTema]; // Lista de palavras do tema selecionado
+		int quantPalavras = Utensilios.arrayLengthNotNull(listaPalavras); // Quantidade de palavras não nulas na lista.
+		
+		// Imprime as palavras de 5 em 5 por linha.
+		for (int i = 1; i < quantPalavras; i+=5) {
+			for (int j = 0; j < 5; j++)
+				if (listaPalavras[i+j] != null)
+					System.out.printf("%S    ", listaPalavras[i+j]);
+			
+			System.out.println();
+		}
+	}
+	
 	public static void gerenciarTemas() {
 		
 		int opcao = 0;
@@ -346,8 +369,9 @@ public class Gerenciador {
 		System.out.println("************* TEMAS *************");
 		
 		for(int counter = 0; counter < Utensilios.arrayLengthNotNull(temas); counter++) {
-			System.out.printf("%-1d. %s%n", (counter+1), Utensilios.capitalize(temas[counter])); // exemplo de formato: 1. Tema
+			System.out.printf("%2d. %s%n", (counter+1), Utensilios.capitalize(temas[counter])); // exemplo de formato: 1. Tema
 		}
+		System.out.println();
 	}
 
 	// Semelhante a outra imprimeTemas, mas somente imprime os temasSelecionados.
