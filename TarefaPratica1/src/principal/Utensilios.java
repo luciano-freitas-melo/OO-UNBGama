@@ -81,6 +81,17 @@ public class Utensilios {
         }
         return valorEncontrado; 
     }
+	
+	public static boolean arrayContem(String[] array, String valor) {
+        boolean valorEncontrado = false;
+
+        for(int i = 0; i < array.length; i++) {
+            if(array[i] == valor) {
+                valorEncontrado = true;
+            }
+        }
+        return valorEncontrado; 
+    }
 
 	// Retorna o tamanho da array, mas ignorando valores do tipo null na contagem.
 	public static int arrayLengthNotNull(String[] array) {
@@ -92,5 +103,16 @@ public class Utensilios {
 		
 		return arrayLength;
 	}
+	
+	// Retorna o tamanho da array, mas ignorando valores = 0 na contagem.
+		public static int arrayLengthNotZero(int[] array) {
+			int arrayLength = 0;
+		
+			for (int value : array)
+				if (value != 0)
+					arrayLength++;
+			
+			return arrayLength;
+		}
 		
 }
