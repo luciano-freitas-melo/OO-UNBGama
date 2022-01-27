@@ -5,14 +5,13 @@ import java.security.SecureRandom;
 public class JogarForca {
 	private static final int LIMITE_ERROS = 5; // Número de tentativas que o usuário tem para acertar a palavra.
 	
-	private static int indexTema; // Essa variável é o índice do tema que será jogado nessa partida.
-	private static String palavraSecreta; // Guarda a palavra secreta que será usada durante o jogo.
+	private static char[] palavraSecreta; // Guarda a palavra secreta que será usada durante o jogo, com os valores separados das letras.
 	
 	public static void jogar() {
 		String jogarNovamente; // Recebe S ou N, dependendo se o usuário deseja jogar novamente ou não.
 		
 		do {
-			jogarRodada(JogoDaForca.temasEPalavras);
+			jogarRodada();
 			jogarNovamente = validarJogarNovamente();
 			System.out.println();
 			
@@ -45,48 +44,45 @@ public class JogarForca {
 		return inputValido;
 	}
 
-	private static void jogarRodada(String[][] temas) {
-		
+	private static void jogarRodada() {
 		
 		imprimeMensagemAbertura();
-		selecionaTema(JogoDaForca.somenteTemas);
-		escolherPalavraSecreta(temas[indexTema]);
+		int posicaoTema = selecionaTema();
 		
-		char[] letrasPalavraSecreta = palavraSecreta.toCharArray(); // palavra secreta separada em uma
-																    // array com as letras da palavra.
+		palavraSecreta = escolherPalavraSecreta(Gerenciador.temasEPalavras[posicaoTema]);; 
+																    
 		
-		char[] letrasAcertadas = inicializaLetrasAcertadas(letrasPalavraSecreta); // É onde guardaremos as letras já acertadas pelo
-																				  // usuário.
-		char[] letrasTentadas = new char[26]; // Armazena todas as letras já tentadas pelo usuário.
+		char[] letrasAcertadas = inicializaLetrasAcertadas(); // É onde guardaremos as letras já acertadas pelo usuário.
+		char[] letrasErradas = new char[26]; // Armazena as letras erradas que o usuário digitou.
 		
 		boolean enforcado = false; // Diz se o jogador errou o limite de vezes, ou seja, foi enforcado.
-		boolean ganhou = false; // Diz se o jogador acertou a palavra ou não
+		boolean ganhou = false; // Diz se o jogador acertou a palavra ou não.
+		
 		int erros = 0; // Conta quantas vezes o usuário errou a letra da palavra.
 		char chute; // Guarda os chutes do jogador durante as rodadas da forca.
-		int index = 0; // Usaremos essa variável para marcar as rodadas e ir colocando as letras já tentadas na array letrasTentadas.
 		
 		while (!enforcado && !ganhou) {
 			imprimeLetrasAcertadas(letrasAcertadas);
-			imprimeLetrasTentadas(letrasTentadas);
+			imprimeLetrasErradas(letrasErradas);
 			System.out.println();
 			
 			System.out.print("Digite uma letra: ");
-			chute = pedeChute(letrasTentadas);
-			letrasTentadas[index++] = chute;
+			chute = pedeChute(letrasErradas, letrasAcertadas);
 			
-			if (Utensilios.arrayContem(letrasPalavraSecreta, chute)) // Ou seja, verifica se o chute é uma letra da palavra secreta.
-				marcaChuteCorreto(chute, letrasAcertadas, letrasPalavraSecreta);
+			if (Utensilios.arrayContem(palavraSecreta, chute)) // Ou seja, verifica se o chute do usuário tem na palavra secreta.
+				marcaChuteCorreto(chute, letrasAcertadas);
 				
 			else {
-				erros ++;
+				letrasErradas[erros ++] = chute;
 				desenhaForca(erros);
+				imprimeTentativasRestantes(erros);
 			}
 			
 			enforcado = erros == LIMITE_ERROS;
 			ganhou = acertouPalavra(letrasAcertadas);
 		}
 		
-		System.out.printf("%nA palavra secreta era: %s%n", palavraSecreta);
+		System.out.printf("%nA palavra secreta era: %s%n", new String(palavraSecreta));
 		if (ganhou)
 			imprimeMensagemVencedor();
 		else
@@ -96,55 +92,54 @@ public class JogarForca {
 	}
 
 	private static void imprimeMensagemAbertura() {
+		System.out.println();
 		System.out.println("*********************************");
 	    System.out.println("** Bem vindo ao jogo da Forca! **");
 	    System.out.println("*********************************");
 	    System.out.println();
 	}
 
-
-	// Apresenta os temas para o usuário e pede para que ele selecione um deles
-	private static void selecionaTema(String[] temas) {
-		Gerenciador.imprimeTemas(temas);
+	// Apresenta os temas para o usuário e pede para que ele selecione um deles, retornando a posição do tema escolhido por ele
+	private static int selecionaTema() {
+		Gerenciador.imprimeTemas();
 		
-			System.out.printf("Digite o número do tema que deseja jogar: ");
-			
-			indexTema = Gerenciador.escolhaTema();
-			
-			while(Gerenciador.temaSemPalavras(JogoDaForca.temasEPalavras, indexTema)) {
-				System.out.print("O tema escolhido não tem palavras armazenadas, tente outro: ");
-				indexTema = Gerenciador.escolhaTema();
-				
-			}
+		System.out.printf("Digite o número do tema que deseja jogar: ");
 		
+		int posicaoTemaEscolhido = Gerenciador.escolhaTema();
+			
+		while(Gerenciador.temaSemPalavras(posicaoTemaEscolhido)) {
+			System.out.print("O tema escolhido não tem palavras armazenadas, tente outro: ");
+			posicaoTemaEscolhido = Gerenciador.escolhaTema();		
+		}
+		return posicaoTemaEscolhido;
 	}
 
 
 	// Escolhe uma palavra aleatoriamente dentre a lista de palavras dada no parâmetro
-	private static void escolherPalavraSecreta(String[] palavras) {
+	private static char[] escolherPalavraSecreta(String[] palavras) {
 		SecureRandom randomNumbers = new SecureRandom();
 		
 		// randomNumbers irá gerar um número aleátorio entre 1 e a quantidade de palavras armazenadas.
 		// Utilizamos números a partir do 1, pois palavras tem o nome do tema como sendo o índice 0.
 		int posicaoPalavra = randomNumbers.nextInt(1, Utensilios.arrayLengthNotNull(palavras));
 																	 
-		palavraSecreta = palavras[posicaoPalavra].toUpperCase(); // Colocamos a palavra em maiúscula para melhor apresentação ao usuário.
+		return palavras[posicaoPalavra].toUpperCase().toCharArray(); // Colocamos a palavra em maiúscula para melhor apresentação ao usuário.
 	
 	}
 
 	// Cria uma array com o caracter "_" para cada letra da palavra secreta, e também respeitando os espaços da palavra.
 	// Exemplo: se palavra secreta é teco teco, o método cria a array {'_', '_', '_', '_', ' ', '_', '_', '_', '_'}
-	private static char[] inicializaLetrasAcertadas(char[] letrasPalavraSecreta) {
-		int tamanhoPalavraSecreta = letrasPalavraSecreta.length;
+	private static char[] inicializaLetrasAcertadas() {
+		int tamanhoPalavraSecreta = palavraSecreta.length;
+		
 		char[] letras = new char[tamanhoPalavraSecreta]; // letras é onde guardaremos os "_" de acordo com o tamanho da palavra secreta															 
 		
 		for (int i = 0; i < tamanhoPalavraSecreta; i++ ) {
-			if(Character.isSpaceChar((letrasPalavraSecreta[i])))
+			if(Character.isSpaceChar((palavraSecreta[i])))
 				letras[i] = ' ';
 			else
 				letras[i] = '_';
 		}
-		
 		return letras;
 	}
 	
@@ -161,52 +156,53 @@ public class JogarForca {
 		System.out.println();
 	}
 
-	private static void imprimeLetrasTentadas(char[] letrasTentadas) {
-		System.out.print("Letras já tentadas: ");
-		for (char letra : letrasTentadas) {
+	private static void imprimeLetrasErradas(char[] letrasErradas) {
+		System.out.print("Letras tentadas: ");
+		
+		for (char letra : letrasErradas) {
+			if (letra != 0)
 			System.out.printf("%c  ", letra);
 		}
 		System.out.println();
 	}
 
-	private static char pedeChute(char[] letrasTentadas) {
+	private static char pedeChute(char[] letrasTentadas, char[] letrasAcertadas) {
 		String chuteStr; // Utilizaremos o chute como string, pois o usuário pode digitar mais de um caracter na linha de comando e queremos poder
 						 // avaliar essa situação.
 		
 		do {
-			
 			chuteStr = Utensilios.ler.next().toUpperCase();
-				
-		}while(!chuteValido(chuteStr, letrasTentadas));
+			
+		}while(!chuteValido(chuteStr, letrasTentadas, letrasAcertadas));
 		
 		return chuteStr.charAt(0); // ao fim transformamos em char o chute para trabalharmos no restante do código.
 	}
 
-	private static boolean chuteValido(String chute, char[] letrasTentadas) {
-		char chuteChar = chute.charAt(0); // transforma o chute, que é uma string, em char, pois algumas funcionalidades só são possíveis com um tipo específico.
+	private static boolean chuteValido(String chute, char[] letrasErradas, char[] letrasAcertadas) {
+		char chuteChar = chute.charAt(0); // transforma o chute, que é uma string, em char, pois algumas funcionalidades só são possíveis 
+										  // com um tipo específico.
 		
 		boolean chuteValido = true;
-		boolean chuteRepetido = Utensilios.arrayContem(letrasTentadas, chuteChar); // Verifica se o chute está na array das letras já tentadas pelo
-																				   // usuário.	
-		
+		// Verifica se o chute já foi tentado pelo usuário, buscando tanto nas letras erradas, como nas letras acertadas.
+		boolean chuteRepetido = Utensilios.arrayContem(letrasErradas, chuteChar) || Utensilios.arrayContem(letrasAcertadas, chuteChar);
+															   	
 		if (!Utensilios.letraValida(chute)) // Se a letra não for válida, o chute também não é válido.
 			chuteValido = false;
 		
 		else if (chuteRepetido) {
-			System.out.println("Tente outra letra!");
+			System.out.print("Você já tentou essa letra! digite novamente: ");
 			chuteValido = false;
 		}
 			
 		return chuteValido;
 	}
 
-	private static void marcaChuteCorreto(char chute, char[] letrasAcertadas, char[] letrasPalavraSecreta) {
+	private static void marcaChuteCorreto(char chute, char[] letrasAcertadas) {
 		int index = 0;
 		
-		for(char letra : letrasPalavraSecreta) {
+		for(char letra : palavraSecreta) {
 			if (chute == letra)
-				letrasAcertadas[index] = chute;
-			
+				letrasAcertadas[index] = chute;	
 			index++;
 		}		
 	}
@@ -254,6 +250,17 @@ public class JogarForca {
 	    System.out.println(" |            ");
 	    System.out.println("_|___         ");
 	    System.out.println();
+	}
+	
+	private static void imprimeTentativasRestantes (int erros) {
+		int tentativasRestantes = LIMITE_ERROS - erros;
+		
+		if (erros != LIMITE_ERROS) {
+			if (tentativasRestantes == 1)
+				System.out.println("Você errou, resta somente UMA tentativa!");
+			else
+			System.out.printf("Você errou, restam %d tentativas!%n", tentativasRestantes);
+		}
 	}
 
 	// Retorna true caso não haja mais lacunas ('_') na array de letras acertadas.

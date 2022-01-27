@@ -1,10 +1,6 @@
 package principal;
 
 public class JogoDaForca {
-	
-	public static String[][] temasEPalavras = new String[50][51];
-	public static String[] somenteTemas = new String[50];
-	
 
 	public static void main(String[] args) {
 		
@@ -13,12 +9,11 @@ public class JogoDaForca {
 		System.out.println();
 		
 		Gerenciador.temasPadrao();
-		int escolhaMenu = 0;
+		int escolhaMenu;
 		do {
-			filtraTemas();
 			imprimeMenu();
 			System.out.print("Digite a opção desejada: ");
-			escolhaMenu = Utensilios.validarVariavel(escolhaMenu, 1, 4, "Essa não é uma escolha válida, tente novamente: ");
+			escolhaMenu = Utensilios.validarVariavel( 1, 4, "Essa não é uma escolha válida, tente novamente: ");
 			
 			switch (escolhaMenu) {
 				case 1:
@@ -38,13 +33,6 @@ public class JogoDaForca {
 		System.out.println("Obrigado por usar o nosso programa, até mais!");
 	
 	}
-	// Insere na variável somenteTemas, os temas que estiverem armazenados em temasEPalavra.
-	public static void filtraTemas() {
-		
-		for (int i = 0; i < temasEPalavras.length; i++) {
-			somenteTemas[i] = temasEPalavras[i][0];
-		}
-	}
 	
 	private static void imprimeMenu() {
 		System.out.println("************** MENU *************");
@@ -55,6 +43,4 @@ public class JogoDaForca {
 		System.out.println("4. Sair");
 		System.out.println();
 	}
-
-	
 }
