@@ -1,44 +1,58 @@
 package principal;
 
 public class JogoDaForca {
+	
+	public static String[][] temasEPalavras = new String[50][51];
+	public static String[] somenteTemas = new String[50];
+	
 
 	public static void main(String[] args) {
-		String[][] temas = {{"animais", "gato", "cachorro", "pato"}, {"frutas", "melancia", "banana", "goiaba"},
-				{"friends", "ross", "rachel", "chandler"}};
 		
-		String jogarNovamente; // Recebe S ou N, dependendo se o usuário deseja jogar novamente ou não.
+		System.out.println("Olá, esse programa é destinado a uso e administração do jogo da Forca! Aproveite!");
+		System.out.println("PLUS ULTRA!");
+		System.out.println();
 		
+		Gerenciador.temasPadrao();
+		int escolhaMenu = 0;
 		do {
-			JogarForca.jogar(temas);
-			jogarNovamente = validarJogarNovamente();
+			filtraTemas();
+			imprimeMenu();
+			System.out.print("Digite a opção desejada: ");
+			escolhaMenu = Utensilios.validarVariavel(escolhaMenu, 1, 4, "Essa não é uma escolha válida, tente novamente: ");
 			
-		}while (jogarNovamente.equals("S") ? true : false);
-
-	}
-
-	private static String validarJogarNovamente() {
-		String input;
-		
-		do {
-			input = Utensilios.ler.next().toUpperCase();
+			switch (escolhaMenu) {
+				case 1:
+					Gerenciador.gerenciarTemas();
+					break;
+				case 2:
+					Gerenciador.gerenciarPalavras();
+					break;
+				case 3:
+					JogarForca.jogar();
+					break;
+			}
 			
-		} while (!JogarNovamenteValido(input));
-		
-		return input;
-	}
-
-	private static boolean JogarNovamenteValido(String input) {
-		boolean inputValido = true;
-		
-		if(!Utensilios.letraValida(input))
-			inputValido = false;
-		
-		else if (!input.equals("S") && !input.equals("N")) {
-			inputValido = false;
-			System.out.print("Só é permitido digitar S (para SIM) ou N (para NÃO): ");
-		}
+		} while(escolhaMenu != 4);
 	
-		return inputValido;
+	}
+	// Insere na variável somenteTemas, os temas que estiverem armazenados em temasEPalavra.
+	public static void filtraTemas() {
+		
+		for (int i = 0; i < temasEPalavras.length; i++) {
+			somenteTemas[i] = temasEPalavras[i][0];
+		}
+	}
+	
+	private static void imprimeMenu() {
+		System.out.println();
+		System.out.println("*********** MENU ***********");
+		System.out.println();
+		System.out.println("1. Gerenciar Temas");
+		System.out.println("2. Gerenciar Palavras");
+		System.out.println("3. Jogar");
+		System.out.println("4. Sair");
+		System.out.println();
 	}
 
+	
 }
