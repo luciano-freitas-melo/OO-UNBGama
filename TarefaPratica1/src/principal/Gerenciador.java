@@ -12,7 +12,7 @@ public class Gerenciador {
 		
 		// Coloca os temas dentro da array temas do nosso jogo da forca
 		for(int i = 0; i < 5; i++) {
-			for (int j = 0; j < 10; j++) {
+			for (int j = 0; j < 11; j++) {
 				if (j == 0)
 					JogoDaForca.temasEPalavras[i][j] = listaTemasPadrao[i];
 				else
@@ -47,7 +47,7 @@ public class Gerenciador {
 
 	private static void menuTemas() {
 		System.out.println();
-		System.out.println("*** Gerenciador de Temas ***");
+		System.out.println("****** Gerenciador de Temas *****");
 		System.out.println();
 		System.out.println("1. Cadastrar");
 		System.out.println("2. Excluir");
@@ -187,7 +187,7 @@ public class Gerenciador {
 		if (temaExiste(temaBuscado, JogoDaForca.somenteTemas)) {
 			System.out.println("Tema encontrado!");
 			String[] palavrasTemas = JogoDaForca.temasEPalavras[posicaoTema(temaBuscado, JogoDaForca.temasEPalavras)];
-			int quantPalavrasTema = Utensilios.arrayLengthNotNull(palavrasTemas);
+			int quantPalavrasTema = Utensilios.arrayLengthNotNull(palavrasTemas) - 1;
 			System.out.printf("O tema tem %d palavras cadastradas...%n", quantPalavrasTema);
 			
 		} else
@@ -239,7 +239,7 @@ public class Gerenciador {
 
 	private static void menuPalavras() {
 		System.out.println();
-		System.out.println("**** Gerenciar Palavras ****");
+		System.out.println("******* Gerenciar Palavras ******");
 		System.out.println();
 		System.out.println("1. Cadastrar");
 		System.out.println("2. Excluir");
@@ -371,7 +371,7 @@ public class Gerenciador {
 			int quantTemas = Utensilios.arrayLengthNotNull(temasDaPalavra); // quantidade de temas com a palavra.
 			
 			if (quantTemas == 1) {
-				System.out.printf("Palavra encontrada no tema %s%n", temasDaPalavra[0]);
+				System.out.printf("Palavra encontrada no tema %S%n", temasDaPalavra[0]);
 				
 			}else {
 				System.out.println("Palavra encontrada nos seguintes temas:");
@@ -434,7 +434,7 @@ public class Gerenciador {
 		int posicaoTema = escolhaTema();
 		
 		System.out.println();
-		System.out.println("********* Palavras *********");
+		System.out.println("************ Palavras ***********");
 		
 		String [] listaPalavras = JogoDaForca.temasEPalavras[posicaoTema]; // Lista de palavras do tema selecionado
 		int quantPalavras = Utensilios.arrayLengthNotNull(listaPalavras); // Quantidade de palavras não nulas na lista.
