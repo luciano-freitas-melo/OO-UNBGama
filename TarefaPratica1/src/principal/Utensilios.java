@@ -11,7 +11,13 @@ public class Utensilios {
 	
 	static Scanner ler = new Scanner(System.in);
 
-												 // 
+	// Lê uma string do usuário, primeiro limpando o buffer e recebendo qualquer valor que estiver na linha.					
+	public static String lerString() {
+		ler.nextLine();
+		String variavel = ler.nextLine().toLowerCase();
+		
+		return variavel;
+	}
 	
 	// Formata uma string qualquer em uma string capitalizada, ou seja, com a primeira letra maiúscula e o resto 
 	// minúscula

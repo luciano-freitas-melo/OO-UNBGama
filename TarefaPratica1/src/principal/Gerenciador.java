@@ -47,7 +47,7 @@ public class Gerenciador {
 
 	private static void menuTemas() {
 		System.out.println();
-		System.out.println("*** Gerenciador de Temas ***");
+		System.out.println("****** Gerenciador de Temas *****");
 		System.out.println();
 		System.out.println("1. Cadastrar");
 		System.out.println("2. Excluir");
@@ -113,7 +113,7 @@ public class Gerenciador {
 
 	// Vasculha a array temas, apresentando os temas disponíveis ao usuário
 	public static void imprimeTemas(String[] temas) {
-		System.out.println(" ********** TEMAS **********");
+		System.out.println("************* TEMAS *************");
 		
 		for(int counter = 0; counter < Utensilios.arrayLengthNotNull(temas); counter++) {
 			System.out.printf("%2d. %s%n", (counter+1), Utensilios.capitalize(temas[counter])); // exemplo de formato: 1. Tema
@@ -239,7 +239,7 @@ public class Gerenciador {
 
 	private static void menuPalavras() {
 		System.out.println();
-		System.out.println("**** Gerenciar Palavras ****");
+		System.out.println("******* Gerenciar Palavras ******");
 		System.out.println();
 		System.out.println("1. Cadastrar");
 		System.out.println("2. Excluir");
@@ -434,7 +434,7 @@ public class Gerenciador {
 		int posicaoTema = escolhaTema();
 		
 		System.out.println();
-		System.out.println("********* Palavras *********");
+		System.out.println("************ Palavras ***********");
 		
 		String [] listaPalavras = JogoDaForca.temasEPalavras[posicaoTema]; // Lista de palavras do tema selecionado
 		int quantPalavras = Utensilios.arrayLengthNotNull(listaPalavras); // Quantidade de palavras não nulas na lista.

@@ -14,6 +14,7 @@ public class JogarForca {
 		do {
 			jogarRodada(JogoDaForca.temasEPalavras);
 			jogarNovamente = validarJogarNovamente();
+			System.out.println();
 			
 		}while (jogarNovamente.equals("S") ? true : false);
 
@@ -95,7 +96,6 @@ public class JogarForca {
 	}
 
 	private static void imprimeMensagemAbertura() {
-		System.out.println();
 		System.out.println("*********************************");
 	    System.out.println("** Bem vindo ao jogo da Forca! **");
 	    System.out.println("*********************************");
@@ -107,7 +107,7 @@ public class JogarForca {
 	private static void selecionaTema(String[] temas) {
 		Gerenciador.imprimeTemas(temas);
 		
-			System.out.printf("%nDigite o número do tema que deseja jogar: ");
+			System.out.printf("Digite o número do tema que deseja jogar: ");
 			
 			indexTema = Gerenciador.escolhaTema();
 			
@@ -273,7 +273,7 @@ public class JogarForca {
 	    System.out.println("         _.' '._        ");
 	    System.out.println("        '-------'       ");
 	    System.out.println();
-	    System.out.println("Parabêns, você acertou a palavra. Deseja jogar novamente? (S/N)");
+	    System.out.println("Parabéns, você acertou a palavra. Deseja jogar novamente? (S/N)");
 	}
 
 	private static void imprimeMensagemPerdedor() {

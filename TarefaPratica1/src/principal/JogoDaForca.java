@@ -34,6 +34,7 @@ public class JogoDaForca {
 			
 		} while(escolhaMenu != 4);
 		
+		System.out.println();
 		System.out.println("Obrigado por usar o nosso programa, até mais!");
 	
 	}
@@ -46,8 +47,7 @@ public class JogoDaForca {
 	}
 	
 	private static void imprimeMenu() {
-		System.out.println();
-		System.out.println("*********** MENU ***********");
+		System.out.println("************** MENU *************");
 		System.out.println();
 		System.out.println("1. Gerenciar Temas");
 		System.out.println("2. Gerenciar Palavras");
