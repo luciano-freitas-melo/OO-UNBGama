@@ -12,7 +12,7 @@ public class Gerenciador {
 		
 		// Coloca os temas dentro da array temas do nosso jogo da forca
 		for(int i = 0; i < 5; i++) {
-			for (int j = 0; j < 10; j++) {
+			for (int j = 0; j < 11; j++) {
 				if (j == 0)
 					JogoDaForca.temasEPalavras[i][j] = listaTemasPadrao[i];
 				else
@@ -113,7 +113,7 @@ public class Gerenciador {
 
 	// Vasculha a array temas, apresentando os temas disponíveis ao usuário
 	public static void imprimeTemas(String[] temas) {
-		System.out.println("************* TEMAS *************");
+		System.out.println(" ********** TEMAS **********");
 		
 		for(int counter = 0; counter < Utensilios.arrayLengthNotNull(temas); counter++) {
 			System.out.printf("%2d. %s%n", (counter+1), Utensilios.capitalize(temas[counter])); // exemplo de formato: 1. Tema
@@ -187,7 +187,7 @@ public class Gerenciador {
 		if (temaExiste(temaBuscado, JogoDaForca.somenteTemas)) {
 			System.out.println("Tema encontrado!");
 			String[] palavrasTemas = JogoDaForca.temasEPalavras[posicaoTema(temaBuscado, JogoDaForca.temasEPalavras)];
-			int quantPalavrasTema = Utensilios.arrayLengthNotNull(palavrasTemas);
+			int quantPalavrasTema = Utensilios.arrayLengthNotNull(palavrasTemas) - 1;
 			System.out.printf("O tema tem %d palavras cadastradas...%n", quantPalavrasTema);
 			
 		} else
@@ -371,7 +371,7 @@ public class Gerenciador {
 			int quantTemas = Utensilios.arrayLengthNotNull(temasDaPalavra); // quantidade de temas com a palavra.
 			
 			if (quantTemas == 1) {
-				System.out.printf("Palavra encontrada no tema %s%n", temasDaPalavra[0]);
+				System.out.printf("Palavra encontrada no tema %S%n", temasDaPalavra[0]);
 				
 			}else {
 				System.out.println("Palavra encontrada nos seguintes temas:");

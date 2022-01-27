@@ -33,6 +33,8 @@ public class JogoDaForca {
 			}
 			
 		} while(escolhaMenu != 4);
+		
+		System.out.println("Obrigado por usar o nosso programa, até mais!");
 	
 	}
 	// Insere na variável somenteTemas, os temas que estiverem armazenados em temasEPalavra.
