@@ -50,7 +50,10 @@ public class Gerenciador {
 		String[] somenteTemas = new String[temasEPalavras.length];
 		
 		for (int i = 0; i < temasEPalavras.length; i++)
-			somenteTemas[i] = temasEPalavras[i][0];
+			if (temasEPalavras[i][0] == null)
+				break;
+			else
+				somenteTemas[i] = temasEPalavras[i][0];
 		
 		return somenteTemas;
 	}
@@ -445,20 +448,26 @@ public class Gerenciador {
 		imprimeTemas();
 		System.out.print("Escolha o tema que deseja listar as palavras: ");
 		int posicaoTema = escolhaTema();
-		
 		System.out.println();
-		System.out.println("************ Palavras ***********");
 		
-		String [] listaPalavras = temasEPalavras[posicaoTema]; // Lista de palavras do tema selecionado
-		int quantPalavras = Utensilios.arrayLengthNotNull(listaPalavras); // Quantidade de palavras não nulas na lista.
+		if (temaSemPalavras(posicaoTema))
+			System.out.println("Esse tema não tem palavras cadastradas!");
 		
-		// Imprime as palavras de 5 em 5 por linha.
-		for (int i = 1; i < quantPalavras; i+=5) {
-			for (int j = 0; j < 5; j++)
-				if (listaPalavras[i+j] != null)
-					System.out.printf("%S    ", listaPalavras[i+j]);
-			
+		else {
+			System.out.println("************ Palavras ***********");
 			System.out.println();
+			
+			String [] listaPalavras = temasEPalavras[posicaoTema]; // Lista de palavras do tema selecionado
+			int quantPalavras = Utensilios.arrayLengthNotNull(listaPalavras); // Quantidade de palavras não nulas na lista.
+			
+			// Imprime as palavras de 5 em 5 por linha.
+			for (int i = 1; i < quantPalavras; i+=5) {
+				for (int j = 0; j < 5; j++)
+					if (listaPalavras[i+j] != null)
+						System.out.printf("%S    ", listaPalavras[i+j]);
+				System.out.println();
+		}
+		
 		}
 	}
 }
