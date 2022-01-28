@@ -4,7 +4,7 @@ public class Gerenciador {
 	public static String[][] temasEPalavras = new String[50][51];
 	
 	public static void temasPadrao() {
-		String[] listaTemasPadrao = {"animais", "frutas", "profissıes", "paises", "friends"};
+		String[] listaTemasPadrao = {"animais", "frutas", "profiss√µes", "paises", "friends"};
 		String[][] listaPalavrasPadrao = {{"cachorro", "macaco", "gato", "elefante", "baleia", "tartaruga", "tigre", "panda", "cobra", "cavalo"},
 										  {"abacate", "pera", "banana", "abacaxi", "goiaba", "melancia", "tomate", "figo", "ameixa", "caju"},
 										  {"engenheiro", "arquiteto", "advogado", "dentista", "escritor", "motorista", "entregador", "enfermeiro", "contador", "policial"},
@@ -27,8 +27,8 @@ public class Gerenciador {
  		int opcao;
 		do{
 			menuTemas();
-			System.out.print("Escolha uma das opÁıes acima: ");
-			opcao = Utensilios.validarVariavel(1, 4, "OpÁ„o inv·lida, digite novamente: ");
+			System.out.print("Escolha uma das op√ß√µes acima: ");
+			opcao = Utensilios.validarVariavel(1, 4, "Op√ß√£o inv√°lida, digite novamente: ");
 			System.out.println();
 			
 			switch (opcao) {
@@ -75,7 +75,7 @@ public class Gerenciador {
 		String novoTema = Utensilios.lerString();
 		
 		if (Utensilios.arrayContem(temas(), novoTema))
-			System.out.println("Tema digitado j· cadastrado!");
+			System.out.println("Tema digitado j√° cadastrado!");
 		else {
 			inserirTema(novoTema);
 			System.out.println("Tema cadastrado com sucesso!");
@@ -96,7 +96,7 @@ public class Gerenciador {
 	private static void excluirTema() {
 		imprimeTemas();
 		
-		System.out.printf("%nDigite o n˙mero do tema que deseja excluir: ");
+		System.out.printf("%nDigite o n√∫mero do tema que deseja excluir: ");
 		
 		int indexTema = escolhaTema();
 	
@@ -105,10 +105,10 @@ public class Gerenciador {
 			System.out.println("Tema deletado com sucesso!");
 		
 		}else 
-			System.out.println("N„o foi possÌvel excluir o tema. Verifique se existem palavras cadastradas nesse tema.");
+			System.out.println("N√£o foi poss√≠vel excluir o tema. Verifique se existem palavras cadastradas nesse tema.");
 	}
 
-	// Vasculha a array temas, apresentando os temas disponÌveis ao usu·rio
+	// Vasculha a array temas, apresentando os temas dispon√≠veis ao usu√°rio
 	public static void imprimeTemas() {
 		String[] temas = temas();
 		System.out.println("************* TEMAS *************");
@@ -119,13 +119,13 @@ public class Gerenciador {
 		System.out.println();
 	}
 	
-	// Pede ao usu·rio que escolha o tema e avalia se o valor digitado È v·lido ou n„o.
+	// Pede ao usu√°rio que escolha o tema e avalia se o valor digitado √© v√°lido ou n√£o.
 	public static int escolhaTema() {
 		int quantTemas = Utensilios.arrayLengthNotNull(temas()); // Quantidade de temas armazenados no programa
 		
-		int indexTemaEscolhido = Utensilios.validarVariavel(1, quantTemas, "Tema escolhido inv·lido, digite novamente: ");
+		int indexTemaEscolhido = Utensilios.validarVariavel(1, quantTemas, "Tema escolhido inv√°lido, digite novamente: ");
 		
-		indexTemaEscolhido --; // Removemos 1 do index pois arrays iniciam com 0 e n„o com 1, diferente de como apresenta o nosso menu.
+		indexTemaEscolhido --; // Removemos 1 do index pois arrays iniciam com 0 e n√£o com 1, diferente de como apresenta o nosso menu.
 		
 		return indexTemaEscolhido;
 	}
@@ -142,19 +142,19 @@ public class Gerenciador {
 		}
 	}	
 	
-	// Esse mÈtodo desloca as linhas da array bidimensional, sobrescrevendo o tema indicado por indexTema.
-	// Para tal, copiamos os valores da prÛxima linha na linha que ser· sobrescrita.
+	// Esse m√©todo desloca as linhas da array bidimensional, sobrescrevendo o tema indicado por indexTema.
+	// Para tal, copiamos os valores da pr√≥xima linha na linha que ser√° sobrescrita.
 	private static void deletarTema(int posicaoTema) {
 		
-		// Ser„o deslocadas as linhas a partir da linha que queremos sobrescrever.
+		// Ser√£o deslocadas as linhas a partir da linha que queremos sobrescrever.
 		for (int i = posicaoTema; i < temasEPalavras.length; i++) {
 			
-			// Somente ser„o deslocadas as linhas que tiverem valores.
+			// Somente ser√£o deslocadas as linhas que tiverem valores.
 			if (temasEPalavras[i][0] != null) {
 				for (int j = 0; j < temasEPalavras[i].length; j++) {
 					
-					// O uso do try and catch È para o caso do programa ter todos os temas possÌveis, assim, para que o ˙ltimo tema n„o dÍ erro,
-					// fazemos isso, e colocamos null nessa ˙ltima linha.
+					// O uso do try and catch √© para o caso do programa ter todos os temas poss√≠veis, assim, para que o √∫ltimo tema n√£o d√™ erro,
+					// fazemos isso, e colocamos null nessa √∫ltima linha.
 					try {
 						temasEPalavras[i][j] = temasEPalavras[i+1][j];	
 					} catch (ArrayIndexOutOfBoundsException erro){
@@ -168,7 +168,7 @@ public class Gerenciador {
 
 	public static boolean temaSemPalavras(int posicaoTema) {
 		boolean temaSemPalavras = false;
-		int primeiraPalavra = 1; // … o Ìndice da primeira palavra do tema.
+		int primeiraPalavra = 1; // √â o √≠ndice da primeira palavra do tema.
 		
 		if (temasEPalavras[posicaoTema][primeiraPalavra] == null) {
 			temaSemPalavras = true;
@@ -186,7 +186,7 @@ public class Gerenciador {
 			imprimeQuantPalavrasTema(posicaoTema(temaBuscado));
 			
 		} else
-			System.out.println("Tema n„o encontrado!");
+			System.out.println("Tema n√£o encontrado!");
 	}
 	
 	// Imprime a quantidade de palavras que tem cadastradas no tema na posicaoTema.
@@ -194,17 +194,16 @@ public class Gerenciador {
 		String[] palavrasTema = temasEPalavras[indexTema]; // palavras no tema de indexTema
 		
 		int quantPalavrasTema = Utensilios.arrayLengthNotNull(palavrasTema) - 1; // Quantidade de palavras, sem considerar null.
-																				 // DiminuÌdo 1, pois a primeira palavra È o prÛprio tema.
-		
+																						
 		System.out.printf("O tema tem %d palavras cadastradas...%n", quantPalavrasTema);
 	}
 
-	// Retorna a posiÁ„o que o tema est· na array bidimensional
+	// Retorna a posi√ß√£o que o tema est√° na array bidimensional
 	private static int posicaoTema(String tema) {
 		int posicaoTema = 0;
 
 		for (int i = 0; i < temasEPalavras.length; i++) {
-			// SÛ faremos a repetiÁ„o enquanto houver valores nos temas.
+			// S√≥ faremos a repeti√ß√£o enquanto houver valores nos temas.
 			if (temasEPalavras[i][0] == null)
 				break;
 			
@@ -220,8 +219,8 @@ public class Gerenciador {
 		int opcao;
 		do{
 			menuPalavras();
-			System.out.print("Escolha uma das opÁıes acima: ");
-			opcao = Utensilios.validarVariavel(1, 5, "OpÁ„o inv·lida, digite novamente: ");
+			System.out.print("Escolha uma das op√ß√µes acima: ");
+			opcao = Utensilios.validarVariavel(1, 5, "Op√ß√£o inv√°lida, digite novamente: ");
 			System.out.println();
 			
 			switch (opcao) {
@@ -263,7 +262,7 @@ public class Gerenciador {
 		String novaPalavra = Utensilios.lerString();
 		
 		if (palavraRepetida(novaPalavra, palavrasDoTema))
-			System.out.println("A palavra j· est· cadastrada para esse tema!");
+			System.out.println("A palavra j√° est√° cadastrada para esse tema!");
 		else {
 			inserirPalavra(novaPalavra, palavrasDoTema);
 			System.out.println("Palavra cadastrada com sucesso!");
@@ -273,7 +272,7 @@ public class Gerenciador {
 	private static boolean palavraRepetida (String novaPalavra, String[] listaPalavras) {
 		boolean palavraRepetida = false;
 		
-		// Iniciamos a partir do 1, pois o primeiro valor da listaPalavras È o nome do tema.
+		// Iniciamos a partir do 1, pois o primeiro valor da listaPalavras √© o nome do tema.
 		for (int i = 1; i < Utensilios.arrayLengthNotNull(listaPalavras); i++)
 			if (listaPalavras[i].equals(novaPalavra)) {
 				palavraRepetida = true;
@@ -297,7 +296,7 @@ public class Gerenciador {
 		String palavra = Utensilios.lerString();
 		
 		if (palavraEncontrada(palavra)) {
-			String[] temasDaPalavra = temasPalavra(palavra); // Guarda o nome de todos os temas que contÍm a palavra.
+			String[] temasDaPalavra = temasPalavra(palavra); // Guarda o nome de todos os temas que cont√™m a palavra.
 			int quantTemas = Utensilios.arrayLengthNotNull(temasDaPalavra); // Quantos temas tem essa palavra.
 			
 			if(quantTemas == 1) {
@@ -308,24 +307,24 @@ public class Gerenciador {
 				excluirPalavraComVariosTemas(palavra, temasDaPalavra, quantTemas);
 			
 		}else
-			System.out.println("Palavra n„o encontrada!");
+			System.out.println("Palavra n√£o encontrada!");
 		
 	}
 	
-	// Esse mÈtodo desloca a coluna da array bidimensional em que est· o tema na posicaoTema, sobrescrevendo o valor de "palavra".
-	// Para tal, copiamos o valor da prÛxima posiÁ„o, na posiÁ„o da palavra que queremos sobrescrever.
+	// Esse m√©todo desloca a coluna da array bidimensional em que est√° o tema na posicaoTema, sobrescrevendo o valor de "palavra".
+	// Para tal, copiamos o valor da pr√≥xima posi√ß√£o, na posi√ß√£o da palavra que queremos sobrescrever.
 	private static void deletaPalavra (String palavra, int posicaoTema) {
 	
 		String [] listaPalavrasTema = temasEPalavras[posicaoTema];
 		int posicaoPalavra = posicaoPalavra(palavra, listaPalavrasTema);
 		
 		for (int i = posicaoPalavra; i < listaPalavrasTema.length; i++) {
-			// SÛ percorre as colunas enquanto houver palavras com valores.
+			// S√≥ percorre as colunas enquanto houver palavras com valores.
 			if (listaPalavrasTema[i] == null)
 				break;
 			else {
-				// // O uso do try and catch È para o caso do tema ter todas as palavras possÌveis, assim, para que a ˙ltimo palavra n„o dÍ erro,
-				// fazemos isso, e colocamos null no ˙ltimo item.
+				// // O uso do try and catch √© para o caso do tema ter todas as palavras poss√≠veis, assim, para que a √∫ltimo palavra n√£o d√™ erro,
+				// fazemos isso, e colocamos null no √∫ltimo item.
 				try {
 					listaPalavrasTema[i] = listaPalavrasTema[i+1];	
 				
@@ -336,7 +335,7 @@ public class Gerenciador {
 		}
 	}
 
-	// Retorna a posiÁ„o da palavra da lista de palavras dada.
+	// Retorna a posi√ß√£o da palavra da lista de palavras dada.
 	private static int posicaoPalavra (String palavra, String[] listaPalavras) {
 		int quantPalavras = Utensilios.arrayLengthNotNull(listaPalavras); // Quantidade de palavras com valores.
 		
@@ -349,11 +348,11 @@ public class Gerenciador {
 	}
 	
 	private static void excluirPalavraComVariosTemas(String palavra, String[] temasDaPalavra, int quantTemas) {
-		System.out.println("Selecione em que tema a palavra ser· excluÌda:");
+		System.out.println("Selecione em que tema a palavra ser√° exclu√≠da:");
 		System.out.println(" 0. Todos");
 		imprimeTemasSelecionados(temasDaPalavra);
 		
-		int opcao = Utensilios.validarVariavel(0, quantTemas, "OpÁ„o digitada inv·lida, tente novamente: ");
+		int opcao = Utensilios.validarVariavel(0, quantTemas, "Op√ß√£o digitada inv√°lida, tente novamente: ");
 		switch(opcao) {
 			case 0:
 				for (String tema : temasDaPalavra) {
@@ -365,9 +364,9 @@ public class Gerenciador {
 				System.out.printf("A palavra %S foi deletada de todos os temas!%n", palavra);
 				break;
 			default:
-				// Colocamos opcao - 1, pois o Ìndice de temasDaPalavra inicia em 0, diferente do nosso menu que apresenta os temas da palavra. 
+				// Colocamos opcao - 1, pois o √≠ndice de temasDaPalavra inicia em 0, diferente do nosso menu que apresenta os temas da palavra. 
 				int indexTema = opcao - 1;
-				// Usamos posicaoTema() pois o Ìndice do tema n„o È necess·riamente o mesmo da nossa array bidimensional.
+				// Usamos posicaoTema() pois o √≠ndice do tema n√£o √© necess√°riamente o mesmo da nossa array bidimensional.
 				deletaPalavra(palavra, posicaoTema(temasDaPalavra[indexTema]));
 				System.out.printf("A palavra %S foi deletada do tema %S com sucesso!%n", palavra, temasDaPalavra[indexTema]);
 		}
@@ -392,20 +391,20 @@ public class Gerenciador {
 			
 	
 		}else
-			System.out.println("Palavra n„o encontrada!");
+			System.out.println("Palavra n√£o encontrada!");
 	}
 
-	// Busca a array bidimensional pela palavraBuscada, retornando true caso encontre, e false caso contr·rio.
+	// Busca a array bidimensional pela palavraBuscada, retornando true caso encontre, e false caso contr√°rio.
 	private static boolean palavraEncontrada(String palavraBuscada) {
 		boolean palavraEncontrada = false;
 		
 		for (int i = 0; i < temasEPalavras.length; i++) {
-			// Ir· percorrer a array atÈ encontrar um valor null, a partir desse momento n„o haver· mais temas armazenados,
-			// ent„o interrompe a repetiÁ„o.
+			// Ir√° percorrer a array at√© encontrar um valor null, a partir desse momento n√£o haver√° mais temas armazenados,
+			// ent√£o interrompe a repeti√ß√£o.
 			if (temasEPalavras[i][0] == null) {
 				break;
 			}else {
-				// iniciamos a busca na coluna a partir do 1, pois o Ìndice 0 È o nome do tema e percorremos somente os valores que n„o
+				// iniciamos a busca na coluna a partir do 1, pois o √≠ndice 0 √© o nome do tema e percorremos somente os valores que n√£o
 				// forem null com o "arrayLengthNotNull".
 				for (int j = 1; j < Utensilios.arrayLengthNotNull(temasEPalavras[i]); j++) {
 					if (temasEPalavras[i][j].equals(palavraBuscada)) {
@@ -426,12 +425,12 @@ public class Gerenciador {
 		
 		int indexTemasDaPalavra = 0;
 		for (int i = 0; i < temasEPalavras.length; i++) {
-			// Ir· percorrer a array atÈ encontrar um valor null, a partir desse momento n„o haver· mais temas armazenados,
-			// ent„o interrompe a repetiÁ„o.
+			// Ir√° percorrer a array at√© encontrar um valor null, a partir desse momento n√£o haver√° mais temas armazenados,
+			// ent√£o interrompe a repeti√ß√£o.
 			if (temasEPalavras[i][0] == null) {
 				break;
 			}else {
-				// iniciamos a busca na coluna a partir do 1, pois o Ìndice 0 È o nome do tema e percorremos somente os valores que n„o
+				// iniciamos a busca na coluna a partir do 1, pois o √≠ndice 0 √© o nome do tema e percorremos somente os valores que n√£o
 				// forem null com o "arrayLengthNotNull".
 				for (int j = 1; j < Utensilios.arrayLengthNotNull(temasEPalavras[i]); j++) {
 					if (temasEPalavras[i][j].equals(palavraBuscada)) {
@@ -451,14 +450,14 @@ public class Gerenciador {
 		System.out.println();
 		
 		if (temaSemPalavras(posicaoTema))
-			System.out.println("Esse tema n„o tem palavras cadastradas!");
+			System.out.println("Esse tema n√£o tem palavras cadastradas!");
 		
 		else {
 			System.out.println("************ Palavras ***********");
 			System.out.println();
 			
 			String [] listaPalavras = temasEPalavras[posicaoTema]; // Lista de palavras do tema selecionado
-			int quantPalavras = Utensilios.arrayLengthNotNull(listaPalavras); // Quantidade de palavras n„o nulas na lista.
+			int quantPalavras = Utensilios.arrayLengthNotNull(listaPalavras); // Quantidade de palavras n√£o nulas na lista.
 			
 			// Imprime as palavras de 5 em 5 por linha.
 			for (int i = 1; i < quantPalavras; i+=5) {
