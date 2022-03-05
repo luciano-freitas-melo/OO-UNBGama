@@ -11,7 +11,13 @@ public class Utensilios {
 	
 	static Scanner ler = new Scanner(System.in);
 
-												 // 
+	// Lê uma string do usuário, primeiro limpando o buffer e recebendo qualquer valor que estiver na linha.					
+	public static String lerString() {
+		ler.nextLine();
+		String variavel = ler.nextLine().toLowerCase();
+		
+		return variavel;
+	}
 	
 	// Formata uma string qualquer em uma string capitalizada, ou seja, com a primeira letra maiúscula e o resto 
 	// minúscula
@@ -33,9 +39,9 @@ public class Utensilios {
 	 * 
 	 * Exemplo de formato de mensagem de erro: "Número digitado inválido, tente novamente: "
 	 */
-	public static int validarVariavel(int variavel, int minimoAceitavel, int maximoAceitavel, String mensagemErro) {
+	public static int validarVariavel(int minimoAceitavel, int maximoAceitavel, String mensagemErro) {
 		boolean valorInvalido;
-		
+		int variavel = 0;
 		do {
 			valorInvalido = false;
 			try {
@@ -57,18 +63,18 @@ public class Utensilios {
 	}
 
 	// Verifica se a letra no parâmetro é uma letra e se é um dígito único.
-		public static boolean letraValida (String letra) {
-			boolean digitoUnico = letra.length() == 1; // Verifica se o usuário digitou apenas um dígito.
-			boolean ehLetra = Character.isLetter(letra.charAt(0)); // Verifica se o chute é uma letra do alfabeto.
+	public static boolean letraValida (String letra) {
+		boolean digitoUnico = letra.length() == 1; // Verifica se o usuário digitou apenas um dígito.
+		boolean ehLetra = Character.isLetter(letra.charAt(0)); // Verifica se o chute é uma letra do alfabeto.
+		
+		if (!digitoUnico)
+			System.out.print("Digite apenas uma letra por vez, tente novamente: ");
 			
-			if (!digitoUnico)
-				System.out.print("Digite apenas uma letra por vez, tente novamente: ");
+		else if (!ehLetra)
+			System.out.print("Isso não é uma letra, tente novamente: ");
 			
-			else if (!ehLetra)
-				System.out.print("Isso não é uma letra, tente novamente: ");
-			
-			return (digitoUnico && ehLetra ? true : false);
-		}
+		return (digitoUnico && ehLetra ? true : false);
+	}
 
 	// Verifica se a array dada no parâmetro contêm o valor respectivo.
 	public static boolean arrayContem(char[] array, char valor) {
@@ -86,7 +92,7 @@ public class Utensilios {
         boolean valorEncontrado = false;
 
         for(int i = 0; i < array.length; i++) {
-            if(array[i] == valor) {
+            if(array[i] != null && array[i].equals(valor)) {
                 valorEncontrado = true;
             }
         }
@@ -102,17 +108,5 @@ public class Utensilios {
 				arrayLength++;
 		
 		return arrayLength;
-	}
-	
-	// Retorna o tamanho da array, mas ignorando valores = 0 na contagem.
-		public static int arrayLengthNotZero(int[] array) {
-			int arrayLength = 0;
-		
-			for (int value : array)
-				if (value != 0)
-					arrayLength++;
-			
-			return arrayLength;
-		}
-		
+	}	
 }
