@@ -23,12 +23,7 @@ public class Locatario extends Conta{
 	}
 	// Getters e Setters - fim
 
-	@Override
-	public Boolean criarConta() {
-		return null;
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public Boolean alterarConta() {
