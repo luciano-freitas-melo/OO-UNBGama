@@ -13,7 +13,7 @@ public class Main {
 		do {
 			System.out.println();
 			menu();
-			escolhaMenu = Validador.lerEntrada(1, 5);
+			escolhaMenu = Validador.lerEntrada(1, 4);
 			
 			switch(escolhaMenu) {
 				case 1:
@@ -21,11 +21,22 @@ public class Main {
 					break;
 				case 2:
 					imoveis();
+					break;
 				case 3:
+					System.out.println("Selecione a conta que deseja realizar a reserva:");
+					bancoDeContas.listarContasPorNome();
+					// Colocamos o -1 pois o index da lista de contas comeca em 0 e nosso menu em 1.
+					int escolherConta = Validador.lerEntrada(1, bancoDeContas.getContas().size()) - 1;
+					
+					Conta conta = bancoDeContas.getContas().get(escolherConta);
+					conta.realizarReserva(bancoDeContas.imoveis());
+					break;
+					
+					
 					
 							
 			}
-		}while(escolhaMenu != 5);
+		}while(escolhaMenu != 4);
 		
 	}
 	
@@ -98,8 +109,7 @@ public class Main {
 		System.out.println("1. Contas");
 		System.out.println("2. Imoveis");
 		System.out.println("3. Realizar reserva");
-		System.out.println("4. Configuracoes");
-		System.out.println("5. Sair");
+		System.out.println("4. Sair");
 	}
 
 }

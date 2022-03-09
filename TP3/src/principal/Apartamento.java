@@ -57,7 +57,9 @@ public class Apartamento extends Imovel{
 		this.tipoApart = TipoApartamento.valueOf(tipoApart);
 	}
 	
-	public Apartamento() {
+	public Apartamento(Conta conta) {
+		
+		super(conta);
 		System.out.println("------- Novo Apartamento -------");
 		// Recebendo o tipo de Apartamento
 		System.out.println("Escolha o tipo de apartamento:");
@@ -69,5 +71,12 @@ public class Apartamento extends Imovel{
 		super.cadastrarInfoImovel();
 	}
 
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + "\n" +
+		"   Tipo: " + this.getTipoApart() + "\n" + 
+		"	Descricao: " + getNome() + "\n" +
+		"	Valor por Noite: RS "+ getPrecoNoite() + "\n";
+	}
 	
 }

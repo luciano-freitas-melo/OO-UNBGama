@@ -94,7 +94,9 @@ public class Casa extends Imovel{
 		this.tipoCasa = TipoCasa.valueOf(tipoCasa);
 	}
 
-	public Casa() {
+	public Casa(Conta conta) {
+		super(conta);
+		
 		//Recebendo o tipo de lugar
 		System.out.println("Escolha o tipo de lugar:");
 		TipoLugar.imprimeTipoLugar();
@@ -111,5 +113,11 @@ public class Casa extends Imovel{
 		super.cadastrarInfoImovel();
 	}
 
-	
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName()+ "\n" +
+		"   Tipo: " + this.getTipoCasa() + " - " + this.getTipoLugar() + "\n" + 
+		"	Descricao: " + getNome() + "\n" +
+		"	Valor por Noite: RS "+ getPrecoNoite() + "\n";
+	}
 }

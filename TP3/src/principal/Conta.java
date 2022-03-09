@@ -50,8 +50,8 @@ public class Conta {
 		return reservas;
 	}
 
-	public void setReservas(ArrayList<Reserva> reservas) {
-		this.reservas = reservas;
+	public void setReservas(Reserva novaReserva) {
+		this.reservas.add(novaReserva);
 	}
 
 	public ArrayList<CartaoDePagamento> getCartoes() {
@@ -107,13 +107,18 @@ public class Conta {
 		Imovel novoImovel = null;
 		switch(opcao) {
 			case 1:
-				novoImovel = new Casa();
+				novoImovel = new Casa(this);
 				break;
 			case 2:
-				novoImovel = new Apartamento();
+				novoImovel = new Apartamento(this);
 				break;
 		}
 		this.setImovel(novoImovel);
+	}
+	
+	public void realizarReserva(ArrayList<Imovel> imoveis) {
+		Reserva novaReserva = new Reserva(this, imoveis);
+		setReservas(novaReserva);
 	}
 
 }

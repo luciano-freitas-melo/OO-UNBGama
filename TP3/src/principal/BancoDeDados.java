@@ -53,6 +53,7 @@ public class BancoDeDados {
 		}
 		return contaEncontrada;
 	}
+	
 	// Lista as contas cadastradas de forma enumerada, apresentando o nome da conta
 	public void listarContasPorNome() {
 		int i = 1;
@@ -61,6 +62,15 @@ public class BancoDeDados {
 			System.out.printf("%d. %s%n", i, c.getNome());
 			i++;
 		}
+	}
+	// Retorna todos os imoveis cadastrados no sistema
+	public ArrayList<Imovel> imoveis() {
+		ArrayList<Imovel> imoveis = new ArrayList<>();
+		
+		for (Conta conta : contas)
+			imoveis.addAll(conta.getImoveis());
+		
+		return imoveis;
 	}	
 	
 }

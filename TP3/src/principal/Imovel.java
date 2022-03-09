@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public abstract class Imovel {
 	
+	private Conta proprietario;
 	private String nome;
 	// Onde fica esse imovel 
 	private Localizacao localizacao;
@@ -21,6 +22,13 @@ public abstract class Imovel {
 	private ArrayList<Reserva> reservas = new ArrayList<>();
 	
 	//Getters e Setters - inicio
+	
+	public Conta getProprietario() {
+		return proprietario;
+	}
+	public void setProprietario(Conta proprietario) {
+		this.proprietario = proprietario;
+	}
 	public String getNome() {
 		return nome;
 	}
@@ -40,7 +48,7 @@ public abstract class Imovel {
 		this.especificacao = especificacao;
 	}
 	public BigDecimal getPrecoNoite() {
-		return precoNoite;
+		return precoNoite.setScale(2);
 	}
 	public void setPrecoNoite(double d) {
 		this.precoNoite = new BigDecimal(d);
@@ -78,7 +86,8 @@ public abstract class Imovel {
 		this.reservas = reservas;
 	}
 	
-	public Imovel () {
+	public Imovel (Conta conta) {
+		setProprietario(conta);
 	}
 	// Pede ao usuario as informacoes sobre os atributos do imovel para cadastro
 	public void cadastrarInfoImovel() {
@@ -98,6 +107,7 @@ public abstract class Imovel {
 		System.out.println("Calendario de Disponibilidade");
 		setCalendario(new CalendarioDisponibilidade());
 	}
+	
 	
 	public Boolean editar() {
 		return null;
