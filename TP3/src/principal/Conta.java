@@ -3,35 +3,36 @@ package principal;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
-public abstract class Conta {
-	protected String nome;
-	protected String docCPF;
-	protected LocalDate dataNascimento;
-	protected String telefone;
+public class Conta {
+	private String nome;
+	private String cpf;
+	private LocalDate dataNascimento;
+	private String telefone;
+	private ArrayList<Imovel> imoveis = new ArrayList<Imovel>();
+	private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
+	private ArrayList<CartaoDePagamento> cartoes = new ArrayList<CartaoDePagamento>();
 	
 	// Getters e Setters - inicio
 	public String getNome() {
-		// Retorna o nome de forma capitalizada
-		return nome = nome.substring(0,1).toUpperCase() + nome.substring(1);
+		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getdocCPF() {
-		return docCPF;
+	public String getCpf() {
+		return cpf;
 	}
-	public void setdocCPF(String docID) {
-		this.docCPF = docID;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	public String getDataNascimento() {
 		// Retorna a string no formato: Dia/Mes/Ano
 		return dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 	}
-	public void setDataNascimento(String string) {
-		// o metodo parse faz com que possamos obter um LocalDate a partir de uma string que esteja no formato que colocamos
-		// em "ofPattern", sendo dd = dia, MM = mes e yyyy = ano.
-		this.dataNascimento = LocalDate.parse(string, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+	public void setDataNascimento(LocalDate data) {
+		this.dataNascimento = data;
 	}
 	public String getTelefone() {
 		return telefone;
@@ -39,27 +40,80 @@ public abstract class Conta {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
+	public ArrayList<Imovel> getImoveis() {
+		return imoveis;
+	}
+	public void setImovel(Imovel imovel) {
+		this.imoveis.add(imovel);
+	}
+	public ArrayList<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(ArrayList<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+
+	public ArrayList<CartaoDePagamento> getCartoes() {
+		return cartoes;
+	}
+
+	public void setCartoes(ArrayList<CartaoDePagamento> cartoes) {
+		this.cartoes = cartoes;
+	}
 	// Getters e Setters - fim
 	
-	public Conta() {
+	public Conta(String nome, String cpf, LocalDate dataNascimento, String telefone, ArrayList<Imovel> imoveis,
+			ArrayList<Reserva> reservas, ArrayList<CartaoDePagamento> cartoes) {
+		this.nome = nome;
+		this.cpf = cpf;
+		this.dataNascimento = dataNascimento;
+		this.telefone = telefone;
+		this.imoveis = imoveis;
+		this.reservas = reservas;
+		this.cartoes = cartoes;
+	}
+	
+	public Conta(BancoDeDados banco) {
 		System.out.print("Nome: ");
-		setNome(Validador.ler.next());
+		setNome(Validador.lerNome(3));
 		System.out.print("Numero do CPF: ");
-		setdocCPF(Validador.ler.next());
-		System.out.print("Data de nascimento(DIA/MES/ANO{aaaa}): ");
-		setDataNascimento(Validador.ler.next());
-		System.out.print("Telefone (DDD)9XXXX-XXXX: ");
-		setTelefone(Validador.ler.next());
+		// Le a entrada do CPF, com a restricao de ter 11 digitos na entrada
+		setCpf(Validador.lerEntrada(11));
+		System.out.println("Data de nascimento");
+		setDataNascimento(Validador.lerData());
+		System.out.println("Telefone");
+		setTelefone(Validador.lerTelefone());
+		
+		// Insere no banco a conta criada
+		banco.inserirConta(this);
+		
+		System.out.println("Conta cadastrada com sucesso!");
 	}
 	
-	public void imprimirInformacoesConta() {
-		System.out.printf("Usuario %s%n"
-				+ "CPF = %s     Data de Nascimento = %s     Telefone = %s",getNome(), getdocCPF(), getDataNascimento(), getTelefone());
+	public void alterarConta() {
+		
 	}
-	
-	
-	public abstract Boolean alterarConta();
-	public abstract Boolean excluirConta();
+	public void excluirConta() {
+		
+	}
+	public void cadastrarNovoImovel() {
+		System.out.println("Escolha o tipo de imovel:");
+		System.out.println("1. Casa");
+		System.out.println("2. Apartamento");
+		int opcao = Validador.lerEntrada(1,2);
+		
+		// Colocamos o valor inicial como null pois a variavel deve ser inicializada.
+		Imovel novoImovel = null;
+		switch(opcao) {
+			case 1:
+				novoImovel = new Casa();
+				break;
+			case 2:
+				novoImovel = new Apartamento();
+				break;
+		}
+		this.setImovel(novoImovel);
+	}
 
 }

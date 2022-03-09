@@ -3,8 +3,8 @@ package principal;
 import java.util.Date;
 
 public class Reserva {
-	// Toda reserva tem uma pessoa que a realizou, chamada locatario
-	private Locatario locatario;
+	// Toda reserva esta associada a uma conta que esta realizando a reserva
+	private Conta conta;
 	private Date dataEntrada;
 	private Date dataSaida;
 	// O imovel que sera alugado pelo periodo
@@ -15,11 +15,11 @@ public class Reserva {
 	private Avaliacao avaliacao;
 	
 	// Getters e Setters - inicio
-	public Locatario getLocatario() {
-		return locatario;
+	public Conta getConta() {
+		return conta;
 	}
-	public void setLocatario(Locatario locatario) {
-		this.locatario = locatario;
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 	public Date getDataEntrada() {
 		return dataEntrada;
