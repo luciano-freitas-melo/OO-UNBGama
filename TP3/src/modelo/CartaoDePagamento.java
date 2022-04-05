@@ -10,7 +10,7 @@ public class CartaoDePagamento {
 	private String titular;
 	private int numero;
 	private Date dataValidade;
-	private int CVV;
+	private int cvv;
 	
 	// Getters e Setters - inicio
 	public TipoCartao getTipo() {return tipo;}
@@ -33,20 +33,19 @@ public class CartaoDePagamento {
 	
 	public void setDataValidade(Date dataValidade) {this.dataValidade = dataValidade;}
 	
-	public int getCVV() {return CVV;}
+	public int getCvv() {return cvv;}
 	
-	public void setCVV(int cVV) {CVV = cVV;}
+	public void setCvv(int cvv) {this.cvv = cvv;}
 	// Getters e Setters - fim
-	
-	public Boolean adicionar() {
-		return null;
+
+	public CartaoDePagamento(TipoCartao tipo, String bandeira, String titular, int numero, Date dataValidade, int cvv) {
+		this.tipo = tipo;
+		this.bandeira = bandeira;
+		this.titular = titular;
+		this.numero = numero;
+		this.dataValidade = dataValidade;
+		this.cvv = cvv;
 	}
 	
-	public Boolean editar() {
-		return null;
-	}
 	
-	public Boolean excluir() {
-		return null;
-	}
 }

@@ -1,6 +1,5 @@
 package modelo;
 
-import java.awt.Image;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -13,14 +12,6 @@ public class Casa extends Imovel{
 		TipoLugar(String nome) {
 			this.nome = nome;
 		}
-		public static void imprimeTipoLugar() {
-			int i = 1;
-			for(TipoLugar tipo : TipoLugar.values()) {
-				// Imprime: i. nome do tipoCasa
-				System.out.printf("%d. %s%n", i, tipo.nome);
-				i++;
-			}
-		}
 	};
 	// Declaramos uma variavel para guardar nosso Enum
 	private TipoLugar tipoLugar;
@@ -32,92 +23,37 @@ public class Casa extends Imovel{
 		TipoCasa(String nome) {
 			this.nome = nome;
 		}
-		public static void imprimeTipoCasa() {
-			int i = 1;
-			for(TipoCasa tipo : TipoCasa.values()) {
-				// Imprime: i. nome do tipoCasa
-				System.out.printf("%d. %s%n", i, tipo.nome);
-				i++;
-			}
-		}
 	};
 	// Declaramos uma variavel para guardar nosso Enum
 	private TipoCasa tipoCasa;
+	
 	
 	// Getters e Setters - inicio
 	public String getTipoLugar() {
 		return tipoLugar.nome;
 	}
-	
-	public void escolheTipoLugar(int escolha) {
-		switch(escolha){
-			case 1:
-				this.tipoLugar = TipoLugar.INTEIRO;
-				break;
-			case 2:
-				this.tipoLugar = TipoLugar.QUARTO;
-				break;
-			case 3:
-				this.tipoLugar = TipoLugar.QUARTO_COMPART;
-				break;
-		}
-	} 
-	
-	public String getTipoCasa() {
-		return tipoCasa.nome;
+	public void setTipoLugar(TipoLugar tipoLugar) {
+		this.tipoLugar = tipoLugar;
 	}
 	
-	public void escolheTipoCasa(int escolha) {
-		switch(escolha){
-			case 1:
-				this.tipoCasa = TipoCasa.PADRAO;
-				break;
-			case 2:
-				this.tipoCasa = TipoCasa.CHALE;
-				break;
-			case 3:
-				this.tipoCasa = TipoCasa.CABANA;
-				break;
-			case 4:
-				this.tipoCasa = TipoCasa.CAMPO;
-				break;
-		}
+	public void setTipoCasa(TipoCasa tipoCasa) {
+		this.tipoCasa = tipoCasa;
+	}
+	public String getTipoCasa() {
+		return tipoCasa.nome;
 	} 
 	// Getters e Setters - fim
 	
-	public Casa(String nome, Localizacao localizacao, Especificacao especificacao,
-			BigDecimal precoNoite, CalendarioDisponibilidade calendario, ArrayList<Image> imagens,
-			ArrayList<Reserva> reservas, String tipoLugar , String tipoCasa) {
-		super(nome, localizacao, especificacao, precoNoite, calendario, imagens, reservas);
-
-		this.tipoLugar = TipoLugar.valueOf(tipoLugar);
-		this.tipoCasa = TipoCasa.valueOf(tipoCasa);
-	}
-
-	public Casa(Conta conta) {
-		super(conta);
+	public Casa(Conta proprietario, String nome, Double dimensao, int limiteHospedes, BigDecimal precoNoite, String cep,
+			String logradouro, ArrayList<Beneficio> listaBeneficios, TipoLugar tipoLugar, TipoCasa tipoCasa) {
 		
-		//Recebendo o tipo de lugar
-		System.out.println("Escolha o tipo de lugar:");
-		TipoLugar.imprimeTipoLugar();
-		int escolhaTipoLugar = Validador.lerEntrada(1,3);
-		escolheTipoLugar(escolhaTipoLugar);
+		super(proprietario, nome, dimensao, limiteHospedes, precoNoite, cep, logradouro, listaBeneficios);
 		
-		// Recebendo o tipo de Casa
-		System.out.println("Escolha o tipo de casa:");
-		TipoCasa.imprimeTipoCasa();
-		int escolhaTipoCasa = Validador.lerEntrada(1,4);
-		escolheTipoCasa(escolhaTipoCasa);
+		this.tipoLugar = tipoLugar;
+		this.tipoCasa = tipoCasa;
 		
-		// Recebendo os dados gerais do imovel
-		super.cadastrarInfoImovel();
 	}
-
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName()+ "\n" +
-		"   Tipo: " + this.getTipoCasa() + " - " + this.getTipoLugar() + "\n" + 
-		"	Descricao: " + getNome() + "\n" +
-		"	Valor por Noite: RS "+ getPrecoNoite() + "\n";
-	}
+	
+	
+	
 }

@@ -1,6 +1,5 @@
 package modelo;
 
-import java.awt.Image;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -14,14 +13,6 @@ public class Apartamento extends Imovel{
 		TipoApartamento(String nome) {
 			this.nome = nome;
 		}
-		public static void imprimeTipoApartamento() {
-			int i = 1;
-			for(TipoApartamento tipo : TipoApartamento.values()) {
-				// Imprime: i. nome do tipoCasa
-				System.out.printf("%d. %s%n", i, tipo.nome);
-				i++;
-			}
-		}
 	};	
 	
 	// Declaramos uma variavel para guardar nosso Enum
@@ -32,51 +23,22 @@ public class Apartamento extends Imovel{
 		return tipoApart.nome;
 	}
 	
-	public void escolheTipoApart(int escolha) {
-		switch(escolha){
-		case 1:
-			this.tipoApart = TipoApartamento.PADRAO;
-			break;
-		case 2:
-			this.tipoApart = TipoApartamento.CONDOMINIO;
-			break;
-		case 3:
-			this.tipoApart = TipoApartamento.LOFT;
-			break;
-		case 4:
-			this.tipoApart = TipoApartamento.FLAT;
-			break;
-		}
-	}
-	// Getters e Setters - fim
-	
-	public Apartamento(String nome, Localizacao localizacao, Especificacao especificacao,
-			BigDecimal precoNoite, CalendarioDisponibilidade calendario, ArrayList<Image> imagens,
-			ArrayList<Reserva> reservas, String tipoApart) {
-		super(nome, localizacao, especificacao, precoNoite, calendario, imagens, reservas);
-		this.tipoApart = TipoApartamento.valueOf(tipoApart);
-	}
-	
-	public Apartamento(Conta conta) {
-		
-		super(conta);
-		System.out.println("------- Novo Apartamento -------");
-		// Recebendo o tipo de Apartamento
-		System.out.println("Escolha o tipo de apartamento:");
-		TipoApartamento.imprimeTipoApartamento();
-		int escolhaTipoApart = Validador.lerEntrada(1,4);
-		escolheTipoApart(escolhaTipoApart);
-		
-		// Recebendo os dados gerais do imovel
-		super.cadastrarInfoImovel();
+	public void setTipoApart(TipoApartamento tipo) {
+		this.tipoApart = tipo;
 	}
 
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + "\n" +
-		"   Tipo: " + this.getTipoApart() + "\n" + 
-		"	Descricao: " + getNome() + "\n" +
-		"	Valor por Noite: RS "+ getPrecoNoite() + "\n";
+	public Apartamento(Conta proprietario, String nome, Double dimensao, int limiteHospedes, BigDecimal precoNoite,
+			String cep, String logradouro, ArrayList<Beneficio> listaBeneficios, TipoApartamento tipo) {
+		
+		super(proprietario, nome, dimensao, limiteHospedes, precoNoite, cep, logradouro, listaBeneficios);
+		
+		this.tipoApart = tipo;
 	}
+
+	// Getters e Setters - fim
+	
+	
+
+
 	
 }
