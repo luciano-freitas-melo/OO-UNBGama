@@ -1,5 +1,6 @@
 package modelo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class BancoDeDados {
@@ -26,7 +27,7 @@ public class BancoDeDados {
 		this.beneficiosPadrao.add(beneficio);
 	}
 	
-//	public void DadosPreCadastrados() {
+	public void DadosPreCadastrados() {
 //		beneficiosPadrao.add(new Beneficio("Wi-Fi", "COMODIDADE"));
 //		
 //		ArrayList<Imovel> imoveisPadrao1 = new ArrayList<Imovel>();
@@ -36,11 +37,14 @@ public class BancoDeDados {
 //		ArrayList<Reserva> reservasPadrao1 = new ArrayList<Reserva>();
 //		ArrayList<CartaoDePagamento> cartoesPadrao1 = new ArrayList<CartaoDePagamento>();
 //		
-//		Conta contaPadrao1 = new Conta("luciano", "00100200399", LocalDate.of(2002, 11, 15), "077111112222", imoveisPadrao1, reservasPadrao1, cartoesPadrao1);
-//		
+		Conta contaPadrao1 = new Conta("Usuario Padrao", "75205489602", LocalDate.of(1995, 06, 12), "01145009564");
+		this.inserirConta(contaPadrao1);
+		
+		Conta contaPadrao2 = new Conta("Luciano", "09734785307", LocalDate.of(2001, 11, 20), "07799998599");
+		this.inserirConta(contaPadrao2);
 //		
 //		inserirConta(contaPadrao1);
-//	}
+	}
 	
 	
 
