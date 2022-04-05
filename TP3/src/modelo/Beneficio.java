@@ -1,4 +1,4 @@
-package principal;
+package modelo;
 
 public class Beneficio {
 	

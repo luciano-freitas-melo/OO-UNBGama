@@ -1,4 +1,4 @@
-package principal;
+package modelo;
 
 import java.awt.Image;
 import java.math.BigDecimal;

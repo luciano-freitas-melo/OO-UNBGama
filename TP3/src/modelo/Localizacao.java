@@ -1,4 +1,4 @@
-package principal;
+package modelo;
 
 public class Localizacao {
 	private String cep;
@@ -25,17 +25,5 @@ public class Localizacao {
 		this.cep = cep;
 	}
 	
-	public Localizacao() {
-		System.out.print("CEP: ");
-		setCep(Validador.lerEntrada(8));
-		System.out.print("Logradouro: ");
-		setLogradouro(Validador.lerString());
-		
-	}
-	
-	
-
-	public void editar() {
-	}
 
 }
