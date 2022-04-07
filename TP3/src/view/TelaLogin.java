@@ -19,40 +19,44 @@ public class TelaLogin implements ActionListener {
 	
 	// Criacao do Frame
 	public TelaLogin() {
-		janela.setLayout(new BorderLayout(20,20));
+		janela.setLayout(null);
 		
 		
-		// Alteramos o design do nosso titulo
-		titulo.setFont(new Font("Times New Roman", Font.PLAIN , 20));
-		// colocamos o texto to Jlabel no centro do objeto
+		// Alterando design e alinhamento de nossos componentes
+		titulo.setFont(new Font("Times New Roman", Font.PLAIN , 24));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
-		// Adicionamos o titulo a parte superior do layout
-		janela.add(titulo, BorderLayout.NORTH);
 		
-		//Criamos um container proprio do BoxLayout para inserir os componentes no centro da janela
-		Box boxVertical = Box.createVerticalBox();
-		// Queremos colocar no centro da janela a descricao e contas
+		
+		descricao.setFont(new Font("Open Sans", Font.BOLD , 22));
+		descricao.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		entrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		entrar.setFont(new Font("Open Sans", Font.BOLD, 16));
+		
+		cadastrarConta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 		
 		
 		// Adiciona os nomes das contas para a ComboBox
-		nomesContas = dados.getNomes();
+		nomesContas = dados.getNomesContasCapitalizado();
 		contas = new JComboBox<String>(nomesContas);
 		
-		boxVertical.add(descricao);
-		boxVertical.add(contas);
 		
-		janela.add(boxVertical, BorderLayout.CENTER);
+		titulo.setBounds(20,20,350,40);
+		descricao.setBounds(40, 100, 320, 40);
+		contas.setBounds(40, 170, 320, 60);
+		entrar.setBounds(120, 280, 160, 40);
+		cadastrarConta.setBounds(120, 340, 160, 40);
+		
+		janela.add(titulo);
+		janela.add(descricao);
+		janela.add(contas);
+		janela.add(entrar);
+		janela.add(cadastrarConta);
 		
 		
-		// Um novo container, que tem funcao de dividir a parte de baixo da janela em dois para os botoes
-		JSplitPane splitPane = new JSplitPane();
-		splitPane.setRightComponent(entrar);
-		splitPane.setLeftComponent(cadastrarConta);
 		
-		janela.add(splitPane, BorderLayout.SOUTH);
-		
-		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		janela.setSize(350, 400);
+		janela.setSize(420, 480);
 		janela.setVisible(true);
 		janela.setLocationRelativeTo(null);
 	}
@@ -79,7 +83,7 @@ public class TelaLogin implements ActionListener {
 		}
 			
 		if(src == cadastrarConta)
-			new TelaConta(dados);
+			new TelaConta(dados).cadastrarConta();
 		
 	}
 

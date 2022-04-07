@@ -37,10 +37,10 @@ public class BancoDeDados {
 //		ArrayList<Reserva> reservasPadrao1 = new ArrayList<Reserva>();
 //		ArrayList<CartaoDePagamento> cartoesPadrao1 = new ArrayList<CartaoDePagamento>();
 //		
-		Conta contaPadrao1 = new Conta("Usuario Padrao", "75205489602", LocalDate.of(1995, 06, 12), "01145009564");
+		Conta contaPadrao1 = new Conta("usuario padrao", "75205489602", LocalDate.of(1995, 06, 12), "01145009564");
 		this.inserirConta(contaPadrao1);
 		
-		Conta contaPadrao2 = new Conta("Luciano", "09734785307", LocalDate.of(2001, 11, 20), "07799998599");
+		Conta contaPadrao2 = new Conta("luciano", "09734785307", LocalDate.of(2001, 11, 20), "07799998599");
 		this.inserirConta(contaPadrao2);
 //		
 //		inserirConta(contaPadrao1);

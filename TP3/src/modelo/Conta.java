@@ -19,7 +19,7 @@ public class Conta {
 		return nome;
 	}
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = nome.toLowerCase();
 	}
 	public String getCpf() {
 		return cpf;
