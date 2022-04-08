@@ -13,10 +13,6 @@ public class ControleConta {
 	private ArrayList<Conta> bancoContas;
 	
 	
-	public void setBancoContas(ArrayList<Conta> bancoContas) {
-		this.bancoContas = bancoContas;
-	}
-
 	public String getNome() {
 		return Utilitario.capitalize(this.conta.getNome());
 	}

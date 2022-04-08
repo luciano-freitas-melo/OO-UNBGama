@@ -183,6 +183,7 @@ public class TelaConta implements ActionListener {
 			}
 		}
 	}
+	
 	// o valor de i serve para sabermos se estamos cadastrando (i=0), ou editando (i=1)
 	private boolean dadosValidosAction(int i) {
 		// Validar se os valores digitados são validos
@@ -243,5 +244,6 @@ public class TelaConta implements ActionListener {
 		}
 		return dadosValidos;
 	}
+
 }
 

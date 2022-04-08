@@ -47,7 +47,8 @@ public class Utilitario {
 		
 	}
 	
-	public static void adicionarLabel(JLabel label, Color cor, Font estilo, JFrame janela, int posX, int posY, int largura, int altura ) {
+	public static void adicionarLabel(JLabel label, Color cor, Font estilo, JFrame janela, int posX, int posY, 
+								      int largura, int altura ) {
 		
 		label.setForeground(cor);
 		label.setFont(estilo);
@@ -56,7 +57,8 @@ public class Utilitario {
 		
 	}
 	
-	public static void adicionarInput(JTextField input, Font estilo, JFrame janela, int posX, int posY, int largura, int altura, int alinhamento) {
+	public static void adicionarInput(JTextField input, Font estilo, JFrame janela, int posX, int posY, 
+									  int largura, int altura, int alinhamento) {
 		
 		input.setFont(estilo);
 		input.setBounds(posX,posY,largura, altura);
@@ -65,7 +67,8 @@ public class Utilitario {
 		
 	}
 	
-	public static void adicionarInput(JFormattedTextField input, Font estilo, JFrame janela, int posX, int posY, int largura, int altura, int alinhamento) {
+	public static void adicionarInput(JFormattedTextField input, Font estilo, JFrame janela, int posX, int posY, 
+									  int largura, int altura, int alinhamento) {
 		
 		input.setFont(estilo);
 		input.setBounds(posX,posY,largura, altura);
