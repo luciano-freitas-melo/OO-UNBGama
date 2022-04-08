@@ -1,24 +1,72 @@
 package controle;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 import modelo.*;
 
 public class ControleConta {
 	
 	private Conta conta;
-	private ControleDados dados;
+	// Remete ao banco de contas que temos no sistema
+	private ArrayList<Conta> bancoContas;
 	
-	public ControleConta(ControleDados dados) {
-		this.dados = dados;
+	
+	public void setBancoContas(ArrayList<Conta> bancoContas) {
+		this.bancoContas = bancoContas;
 	}
 
+	public String getNome() {
+		return Utilitario.capitalize(this.conta.getNome());
+	}
+	
+	public String getCpf() {
+		return this.conta.getCpf();
+	}
+	
+	public String getDataNasc() {
+		return this.conta.getDataNascimento().format(DateTimeFormatter.ofPattern("ddMMyyyy"));
+	}
+	
+	public String getTelefone() {
+		return this.conta.getTelefone();
+	}
+	
+	
+	public ControleConta(ArrayList<Conta> bancoContas) {
+		this.bancoContas = bancoContas;
+	}
+
+	// Associa uma conta a esse Controle a partir do nome da conta que tiver no banco de dados
+	public void associarConta(String contaSelecionada) {
+		for (Conta conta : bancoContas) {
+			if(contaSelecionada.toLowerCase().equals(conta.getNome())) {
+				this.conta = conta;
+				break;
+			}
+		}
+	}
+
+	public String[] getNomesContasCapitalizado() {
+		String[] nomes = new String[bancoContas.size()];
+
+		int i = 0;
+		for (Conta conta : bancoContas) {
+			nomes[i++] = Utilitario.capitalize(conta.getNome());
+		}
+		return nomes;
+	}
+	
+	
+	
 	// Verifica se o nome ja esta em uma conta do sistema
 	public boolean nomeRepetido(String nome) {
 		
 		nome = nome.toLowerCase();
 		
-		for(String nomeConta :dados.getNomesContas()) {
-			if(nomeConta.equals(nome))
+		for(Conta conta : bancoContas) {
+			if(conta.getNome().equals(nome))
 				return true;
 		}
 		
@@ -28,8 +76,8 @@ public class ControleConta {
 	// Verifica se o nome ja esta em uma conta do sistema
 	public boolean cpfRepetido(String cpf) {
 			
-		for(String cpfConta :dados.getCpfContas()) {
-			if(cpfConta.equals(cpf))
+		for(Conta conta : bancoContas) {
+			if(conta.getCpf().equals(cpf))
 				return true;	
 	}
 		
@@ -73,7 +121,11 @@ public class ControleConta {
 
 	public void cadastrarNovaConta(String nome, String cpf, String dataNascimento, String telefone) {
 		conta = new Conta(nome, cpf, Utilitario.toLocalDate(dataNascimento), telefone);
-		dados.inserirConta(conta);
+		bancoContas.add(conta);
+	}
+
+	public void editarConta(String nome, String cpf, String dataNascimento, String telefone) {
+		this.conta = new Conta(nome, cpf, Utilitario.toLocalDate(dataNascimento), telefone);
 	}
 
 }

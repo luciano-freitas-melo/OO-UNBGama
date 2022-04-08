@@ -27,9 +27,8 @@ public class Conta {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	public String getDataNascimento() {
-		// Retorna a string no formato: Dia/Mes/Ano
-		return dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
 	}
 	public void setDataNascimento(LocalDate data) {
 		this.dataNascimento = data;

@@ -6,19 +6,26 @@ import javax.swing.*;
 import controle.*;
 
 public class TelaLogin implements ActionListener {
-
-	private static JFrame janela = new JFrame("Login");
-	private static JLabel titulo = new JLabel("Aluguel de Imoveis para Temporada");
-	private static JLabel descricao = new JLabel("Escolha uma conta");
-	private static JComboBox<String> contas;
-	private static JButton entrar = new JButton("Entrar");
-	private static JButton cadastrarConta = new JButton("Cadastrar nova conta");
 	
-	private static ControleDados dados = new ControleDados();
+	private JFrame janela = new JFrame("Login");
+	private JLabel titulo = new JLabel("Aluguel de Imoveis para Temporada");
+	private JLabel descricao = new JLabel("Escolha uma conta");
+	private JComboBox<String> contas;
+	
+	private JButton entrar = new JButton("Entrar");
+	private JButton cadastrarConta = new JButton("Nova conta");
+	
+	private ControleDados dados;
+	private ControleConta conta;
 	private String[] nomesContas;
 	
+
 	// Criacao do Frame
-	public TelaLogin() {
+	public TelaLogin(ControleDados data) {
+		
+		this.dados = data;
+		this.conta = new ControleConta(data.getContas());
+		
 		janela.setLayout(null);
 		
 		
@@ -34,11 +41,12 @@ public class TelaLogin implements ActionListener {
 		entrar.setFont(new Font("Open Sans", Font.BOLD, 16));
 		
 		cadastrarConta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		cadastrarConta.setFont(new Font("Open Sans", Font.BOLD, 16));
 		
 		
 		
 		// Adiciona os nomes das contas para a ComboBox
-		nomesContas = dados.getNomesContasCapitalizado();
+		nomesContas = conta.getNomesContasCapitalizado();
 		contas = new JComboBox<String>(nomesContas);
 		
 		
@@ -48,14 +56,17 @@ public class TelaLogin implements ActionListener {
 		entrar.setBounds(120, 280, 160, 40);
 		cadastrarConta.setBounds(120, 340, 160, 40);
 		
+		
 		janela.add(titulo);
 		janela.add(descricao);
 		janela.add(contas);
 		janela.add(entrar);
 		janela.add(cadastrarConta);
 		
+		entrar.addActionListener(this);
+		cadastrarConta.addActionListener(this);
 		
-		
+		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		janela.setSize(420, 480);
 		janela.setVisible(true);
 		janela.setLocationRelativeTo(null);
@@ -65,12 +76,15 @@ public class TelaLogin implements ActionListener {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		TelaLogin login = new TelaLogin();
 		
-		entrar.addActionListener(login);
-		cadastrarConta.addActionListener(login);
+		ControleDados dados = new ControleDados();
+		
+		new TelaLogin(dados);
+		
+		
+		
+			
 	}
-
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -79,12 +93,13 @@ public class TelaLogin implements ActionListener {
 		if(src == entrar) {
 			String contaSelecionada = contas.getSelectedItem().toString();
 			new TelaMenuPrincipal(dados, contaSelecionada);
-			janela.dispose();
 		}
 			
 		if(src == cadastrarConta)
 			new TelaConta(dados).cadastrarConta();
 		
+		janela.dispose();
+			
 	}
 
 	
